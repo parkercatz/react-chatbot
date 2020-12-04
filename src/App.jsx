@@ -33,7 +33,7 @@ export default class App extends React.Component {
   selectAnswer = (selectedAnswer, nextQuestionId) => {
     switch (true) {
       case nextQuestionId === 'init':
-        this.displayNextQuestion(nextQuestionId)
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500)
         break
       default:
         const chats = this.state.chats
@@ -46,7 +46,8 @@ export default class App extends React.Component {
           chats: chats,
         })
 
-        this.displayNextQuestion(nextQuestionId)
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000)
+
         break
     }
   }
@@ -62,6 +63,13 @@ export default class App extends React.Component {
   componentDidMount() {
     const initAnswer = ''
     this.selectAnswer(initAnswer, this.state.currentId)
+  }
+
+  componentDidUpdate() {
+    const scrollArea = document.getElementById('scroll-area')
+    if (scrollArea) {
+      scrollArea.scrollTop = scrollArea.scrollHeight
+    }
   }
 
   render() {
